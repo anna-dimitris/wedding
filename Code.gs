@@ -16,7 +16,7 @@
  */
 
 // ⚙️ Email ειδοποιήσεων. Κενό ή "PASTE_EMAIL" = χωρίς αποστολή email.
-var NOTIFY_EMAIL = "PASTE_EMAIL";
+var NOTIFY_EMAIL = "weddinganndim@gmail.com";
 
 var SHEET_NAME   = "Απαντήσεις";
 var SUMMARY_NAME = "Σύνολο";
@@ -110,20 +110,33 @@ function ensureSheet_(ss){
 }
 
 function ensureSummary_(ss){
-  if (ss.getSheetByName(SUMMARY_NAME)) return;
-  var sm = ss.insertSheet(SUMMARY_NAME, 0);   // πρώτο φύλλο = ό,τι βλέπει πρώτο το ζευγάρι
+  var sm = ss.getSheetByName(SUMMARY_NAME);
+  if (!sm){
+    sm = ss.insertSheet(SUMMARY_NAME, 0);   // πρώτο φύλλο = ό,τι βλέπει πρώτο το ζευγάρι
+    sm.getRange("A1:A5").setValues([
+      ["Σύνοψη RSVP"],
+      ["Σύνολο απαντήσεων"],
+      ["✅ Έρχονται (Ναι)"],
+      ["❌ Δεν έρχονται (Όχι)"],
+      ["👥 Σύνολο ατόμων που έρχονται"]
+    ]);
+    sm.getRange("A1:B1").merge().setFontWeight("bold").setFontSize(13);
+    sm.getRange("A2:A5").setFontWeight("bold");
+    sm.getRange("B2:B5").setFontSize(14).setHorizontalAlignment("right");
+    sm.setColumnWidth(1, 240); sm.setColumnWidth(2, 90);
+  }
+  // Οι φόρμουλες μπαίνουν με setFormulas (ΟΧΙ setValues): το setValues ερμηνεύει το
+  // κείμενο με το locale του αρχείου — σε ελληνικό locale το διαχωριστικό είναι «;»
+  // και τα COUNTIF/SUMIF με κόμμα γίνονται #ERROR!. Το setFormulas δέχεται πάντα
+  // US σύνταξη, σε κάθε locale. Ξαναγράφονται και σε υπάρχον φύλλο, ώστε ένα
+  // χαλασμένο «Σύνολο» να αυτοδιορθώνεται στο επόμενο RSVP ή setup().
   var q = "'" + SHEET_NAME + "'";
-  sm.getRange("A1:B5").setValues([
-    ["Σύνοψη RSVP",                    ""],
-    ["Σύνολο απαντήσεων",             "=COUNTA(" + q + "!B2:B)"],
-    ["✅ Έρχονται (Ναι)",             "=COUNTIF(" + q + "!C2:C,\"Ναι\")"],
-    ["❌ Δεν έρχονται (Όχι)",          "=COUNTIF(" + q + "!C2:C,\"Όχι\")"],
-    ["👥 Σύνολο ατόμων που έρχονται", "=SUMIF(" + q + "!C2:C,\"Ναι\"," + q + "!D2:D)"]
+  sm.getRange("B2:B5").setFormulas([
+    ["=COUNTA(" + q + "!B2:B)"],
+    ["=COUNTIF(" + q + "!C2:C,\"Ναι\")"],
+    ["=COUNTIF(" + q + "!C2:C,\"Όχι\")"],
+    ["=SUMIF(" + q + "!C2:C,\"Ναι\"," + q + "!D2:D)"]
   ]);
-  sm.getRange("A1:B1").merge().setFontWeight("bold").setFontSize(13);
-  sm.getRange("A2:A5").setFontWeight("bold");
-  sm.getRange("B2:B5").setFontSize(14).setHorizontalAlignment("right");
-  sm.setColumnWidth(1, 240); sm.setColumnWidth(2, 90);
 }
 
 /** Κανονικοποίηση ονόματος για σύγκριση: πεζά, χωρίς τόνους/διαλυτικά, τελικό ς→σ,
