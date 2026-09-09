@@ -4,18 +4,18 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Άννα &amp; Δημήτρης · Save the Date</title>
-<meta name="description" content="Σάββατο 23 Ιανουαρίου 2027 · Κηφισιά. Άννα &amp; Δημήτρης — σας προσκαλούμε." />
-<meta name="theme-color" content="#0E1518" />
+<meta name="description" content="Σάββατο 23 Ιανουαρίου 2027 · Νέα Κηφισιά. Άννα &amp; Δημήτρης — σας προσκαλούμε." />
+<meta name="theme-color" content="#F3EFE7" />
 
 <!-- Open Graph (για όμορφη προεπισκόπηση όταν μοιραστεί ο σύνδεσμος) -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Άννα & Δημήτρης · Save the Date" />
-<meta property="og:description" content="Σάββατο 23 Ιανουαρίου 2027 · Κηφισιά" />
+<meta property="og:description" content="Σάββατο 23 Ιανουαρίου 2027 · Νέα Κηφισιά" />
 <meta property="og:image" content="wedding.jpg" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=GFS+Didot&display=swap" rel="stylesheet" />
 
 <!-- Ενεργοποιεί την «κλειστή» κατάσταση του φακέλου ΜΟΝΟ αν υπάρχει JS και ο χρήστης
      δεν έχει ζητήσει λιγότερη κίνηση. Χωρίς JS / με reduced-motion ο φάκελος είναι ήδη ανοιχτός. -->
@@ -30,36 +30,38 @@
 
 <style>
   /* ========================================================================
-     «EMBER THROUGH FROST» — Night → Dawn
-     Κρύο χειμωνιάτικο πλαίσιο· η ζεστασιά είναι σφραγισμένη μέσα στον φάκελο
-     και ξεχύνεται όταν τον ανοίγεις.
+     «SEALED» — Ivory → Cypress → Ivory
+     Απ' έξω χλωμό χαρτί· από μέσα βαθύ κυπαρισσί. Σπας τη μπορντό βουλοκέρι
+     και κοιτάς μέσα στο γράμμα.
      ⚙️  Τα στοιχεία του γάμου αλλάζουν ΜΟΝΟ στο <script> κάτω-κάτω (CONFIG).
      ======================================================================== */
 
   :root{
-    --frost:#F0F2F0;     /* παγωμένο off-white — η «μέρα» */
-    --slate:#2F3E46;     /* βαθύ γκρι-μπλε μελάνι (όχι μαύρο) */
-    --navy:#1B3B5A;      /* κλασικό navy — ουρανός νύχτας */
-    --ice:#8FA8B8;       /* παγωμένο γαλάζιο — πάχνη, χιόνι, λεπτομέρειες */
-    --emerald:#0A4D3C;   /* σμαραγδί — τίτλοι & μονόγραμμα (κείμενο) */
-    --emerald-hi:#0C5742;
-    --emerald-lo:#063528;
-    --cream:#E6D8BE;     /* μπεζ-κρεμ — το χαρτί του φακέλου */
-    --cream-hi:#F4ECDB;  /* ανοιχτό κρεμ — φως πάνω στο χαρτί */
-    --cream-lo:#D0BC97;  /* βαθύτερο μπεζ — σκιά/πτυχή */
+    /* ——— η παλέτα ——— */
+    --ink:#101814;       /* σχεδόν μαύρο κυπαρισσί — το «μέσα» του φακέλου */
+    --cypress:#174638;   /* βαθύ κυπαρισσί — τίτλοι πάνω σε ivory */
+    --ivory:#F3EFE7;     /* ζεστό ivory — το χαρτί */
+    --bronze:#AD794F;    /* παλαιωμένο χρυσομπρονζέ — κουμπιά & μεταλλικά */
+    --greige:#C9C0B3;    /* warm champagne — σβησμένο κείμενο ΜΟΝΟ σε σκούρο */
+    --wine:#652938;      /* βαθύ μπορντό — η σφραγίδα· μικρό accent */
+
+    /* παράγωγα — μόνο για gradients & σκιές, όλα στην ίδια οικογένεια */
+    --ivory-hi:#FBF8F2;  --ivory-lo:#E4DDD0;   /* φως & πτυχή στο χαρτί */
+    --bronze-hi:#D2A277; --bronze-lo:#8A5C3A;  /* μέταλλο: λάμψη & σκιά */
+    --wine-hi:#A04A5C;   --wine-lo:#4A1A26;    /* κερί: λάμψη & βάθος */
     /* υφή χαρτιού — inline fractal-noise SVG (χωρίς εξωτερικό asset)· χοντρότερη
        ίνα + λίγη αντίθεση ώστε να «διαβάζεται» ως χαρτί, σε grayscale */
     --paper:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.62' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='1.6' intercept='-0.3'/%3E%3CfeFuncG type='linear' slope='1.6' intercept='-0.3'/%3E%3CfeFuncB type='linear' slope='1.6' intercept='-0.3'/%3E%3CfeFuncA type='linear' slope='0' intercept='1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23p)'/%3E%3C/svg%3E");
-    --amber:#C47E4D;     /* η ΜΟΝΗ ζεστή πηγή — κερί, φως, CTA */
-    --ember:#E6B07A;     /* πυρακτωμένος πυρήνας της λάμψης */
-    --night:#0E1518;     /* το πιο βαθύ σκοτάδι (βινιέτα) */
+    --muted:#8C8375;     /* σβησμένο κείμενο & placeholder ΜΟΝΟ σε ivory */
+    --hairline:#B3A897;  /* λεπτές γραμμές φόρμας πάνω σε ivory */
 
-    --surface:#FBFCFB;
-    --line:rgba(47,62,70,.14);
-    --line-strong:rgba(47,62,70,.26);
+    --line:rgba(23,70,56,.14);
+    --line-strong:rgba(23,70,56,.24);
 
-    --serif:"GFS Didot", Georgia, "Times New Roman", serif;
-    --sans:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    /* Didot για τα μεγάλα· Garamond για όλα τα υπόλοιπα — ο Claude Garamond
+       χάραξε τα «grecs du roi», τα ελληνικά στοιχεία του 16ου αιώνα. */
+    --display:"GFS Didot", Georgia, "Times New Roman", serif;
+    --text:"EB Garamond", Georgia, "Times New Roman", serif;
   }
 
   *{box-sizing:border-box}
@@ -67,9 +69,9 @@
   html{scroll-behavior:smooth}
   body{
     margin:0;
-    background:var(--frost);
-    color:var(--slate);
-    font-family:var(--sans);
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:var(--text);
     font-weight:400;
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
@@ -84,15 +86,15 @@
   }
 
   .eyebrow{
-    font-family:var(--sans);
-    font-size:.7rem;font-weight:600;
+    font-family:var(--text);
+    font-size:.76rem;font-weight:500;
     letter-spacing:.36em;text-transform:uppercase;
-    color:var(--ice);
+    color:var(--greige);
   }
 
   .wrap{max-width:720px;margin:0 auto;padding:0 28px}
 
-  :focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:2px}
+  :focus-visible{outline:2px solid var(--bronze);outline-offset:3px;border-radius:2px}
 
   /* =====================================================================
      ACT 1 — ΟΛΗ Η ΟΘΟΝΗ ΕΙΝΑΙ Ο ΦΑΚΕΛΟΣ
@@ -102,30 +104,39 @@
     min-height:100vh;min-height:100svh;
     overflow:hidden;
     background:
-      radial-gradient(120% 80% at 50% 30%, rgba(27,59,90,.55), rgba(15,21,24,0) 60%),
-      radial-gradient(140% 120% at 50% 120%, #16323f 0%, var(--night) 62%),
-      linear-gradient(180deg, #0b1f2b 0%, var(--night) 100%);
-    color:var(--frost);
+      radial-gradient(120% 80% at 50% 30%, rgba(23,70,56,.60), rgba(16,24,20,0) 62%),
+      radial-gradient(140% 120% at 50% 120%, #16321F 0%, var(--ink) 62%),
+      linear-gradient(180deg, #0D1F17 0%, var(--ink) 100%);
+    color:var(--ivory);
     perspective:2000px;perspective-origin:50% 50%;
   }
-  /* βινιέτα στις άκρες */
+  /* υπόστρωση χαρτιού: κλείνει κάθε ρωγμή στις άκρες όσο ο φάκελος είναι κλειστός */
+  .scene::before{
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
+    background:var(--ivory);opacity:0;transition:opacity 1.1s ease;
+  }
+  html.js-anim:not(.opened) .scene::before{opacity:1}
+
+  /* βινιέτα — μόνο αφού ανοίξει· πάνω στο χαρτί θα έδειχνε βρώμικη */
   .scene::after{
     content:"";position:absolute;inset:0;pointer-events:none;z-index:6;
-    background:radial-gradient(132% 96% at 50% 46%, transparent 64%, rgba(8,12,14,.6) 100%);
+    background:radial-gradient(132% 96% at 50% 46%, transparent 62%, rgba(10,16,13,.42) 100%);
+    opacity:1;transition:opacity 1.1s ease;
   }
+  html.js-anim:not(.opened) .scene::after{opacity:0}
 
   .snow{position:absolute;inset:0;z-index:1;pointer-events:none}
   .flake{
     position:absolute;top:-6%;border-radius:50%;
-    background:radial-gradient(circle at 30% 30%, #fff, var(--ice));
+    background:radial-gradient(circle at 30% 30%, var(--ivory), var(--greige));
     opacity:.0;
     animation:fall linear infinite;
     will-change:transform,opacity;
   }
   @keyframes fall{
     0%{transform:translate3d(0,-10vh,0);opacity:0}
-    8%{opacity:.85}
-    92%{opacity:.7}
+    8%{opacity:.58}
+    92%{opacity:.46}
     100%{transform:translate3d(var(--sway,12px),112vh,0);opacity:0}
   }
 
@@ -137,24 +148,29 @@
   /* η πρόσκληση — ΜΕΓΑΛΗ· βγαίνει μέσα από τον φάκελο (base = ΑΝΟΙΧΤΟ) */
   .card{
     left:50%;top:50%;margin:0;width:min(56vh,86vw);
-    padding:9px;border-radius:6px;background:var(--frost);
+    padding:11px;border-radius:6px;background:var(--ivory);
     transform-origin:50% 50%;
     transform:translate(-50%,-50%) translateZ(22px) scale(1);   /* πλήρως κεντραρισμένη */
-    box-shadow:0 36px 72px rgba(0,0,0,.62), 0 0 0 1px rgba(240,242,240,.4);
+    box-shadow:0 36px 72px rgba(0,0,0,.58), 0 0 0 1px rgba(173,121,79,.38);
     transition:transform 2s cubic-bezier(.2,.66,.2,1) .5s, opacity 1s ease .45s;
   }
-  .card img{display:block;width:100%;height:auto;border-radius:3px}
-  /* amber rim-light στην ανοιγμένη πρόσκληση */
+  .card img{display:block;width:100%;height:auto;border-radius:2px}
+  /* λεπτή χρυσή γραμμή μέσα από την άκρη του πασπαρτού */
+  .card::before{
+    content:"";position:absolute;inset:5px;border:1px solid rgba(173,121,79,.55);
+    border-radius:3px;pointer-events:none;z-index:2;
+  }
+  /* ζεστό rim-light στην ανοιγμένη πρόσκληση */
   .card::after{
     content:"";position:absolute;inset:-2px;border-radius:8px;pointer-events:none;
-    box-shadow:0 0 50px 4px rgba(230,176,122,.42);
+    box-shadow:0 0 50px 4px rgba(210,162,119,.40);
     opacity:1;transition:opacity 1.2s ease;
   }
 
   /* κάτω μέρος του φακέλου (full-bleed) — base = ΑΝΟΙΧΤΟ (κατεβασμένο/σβησμένο) */
   .env-pocket{
     inset:0;
-    background:linear-gradient(160deg,var(--cream-hi),var(--cream) 60%,var(--cream-lo));
+    background:linear-gradient(160deg,var(--ivory-hi),var(--ivory) 58%,var(--ivory-lo));
     clip-path:polygon(0 42%, 50% 56%, 100% 42%, 100% 100%, 0 100%);
     transform:translateZ(30px) translateY(82%);opacity:0;
     transition:transform 1.6s cubic-bezier(.6,.02,.2,1) .1s, opacity 1.2s ease .4s;
@@ -163,17 +179,17 @@
   .env-pocket::after{
     content:"";position:absolute;inset:0;clip-path:inherit;
     background:
-      linear-gradient(to top right, transparent calc(50% - .6px), rgba(120,90,52,.20) 50%, transparent calc(50% + .6px)),
-      linear-gradient(to top left,  transparent calc(50% - .6px), rgba(120,90,52,.20) 50%, transparent calc(50% + .6px));
+      linear-gradient(to top right, transparent calc(50% - .6px), rgba(138,92,58,.13) 50%, transparent calc(50% + .6px)),
+      linear-gradient(to top left,  transparent calc(50% - .6px), rgba(138,92,58,.13) 50%, transparent calc(50% + .6px));
   }
 
   /* πάνω καπάκι (full-bleed) — base = ΑΝΟΙΧΤΟ (σηκωμένο) */
   .env-flap{
     inset:0;transform-origin:50% 0%;
-    background:linear-gradient(180deg,var(--cream-hi),var(--cream) 72%,var(--cream-lo));
+    background:linear-gradient(180deg,var(--ivory-hi) 0%,var(--ivory-hi) 30%,var(--ivory) 41%,#E7DFD0 51%,#DBD2C1 58%);
     clip-path:polygon(0 0, 100% 0, 100% 42%, 50% 56%, 0 42%);
     transform:translateZ(40px) rotateX(-179deg);
-    box-shadow:0 16px 30px rgba(0,0,0,.3);
+    box-shadow:0 16px 30px rgba(16,24,20,.22);
     transition:transform 1.9s cubic-bezier(.55,.04,.2,1) .05s;
     backface-visibility:visible;
   }
@@ -184,40 +200,41 @@
   .env-pocket::before{
     content:"";position:absolute;inset:0;clip-path:inherit;pointer-events:none;
     background:var(--paper);background-size:260px 260px;
-    mix-blend-mode:soft-light;opacity:.85;
+    mix-blend-mode:soft-light;opacity:.55;
   }
 
-  /* η σφραγίδα κεριού — το ΕΝΑ ζεστό αντικείμενο, «αναπνέει» σαν χόβολη */
+  /* η σφραγίδα κεριού — μπορντό κερί, χρυσό μονόγραμμα· το ΕΝΑ τολμηρό σημείο */
   .seal{
     left:50%;top:48.5%;
     width:clamp(78px, 11vh, 120px);aspect-ratio:1;
     transform:translate(-50%,-50%) translateZ(50px) scale(1.5);
-    border:0;cursor:pointer;border-radius:50%;
+    border:0;cursor:pointer;
+    border-radius:48% 52% 51% 49% / 52% 48% 52% 48%;
     opacity:0;pointer-events:none;          /* base = ανοιχτός φάκελος → η σφραγίδα κρυμμένη */
     background:
-      radial-gradient(circle at 38% 30%, var(--ember), var(--amber) 46%, #9a5a30 100%);
+      radial-gradient(circle at 38% 30%, var(--wine-hi), var(--wine) 46%, var(--wine-lo) 100%);
     box-shadow:
-      0 3px 8px rgba(0,0,0,.45),
-      inset 0 2px 5px rgba(255,225,190,.55),
-      inset 0 -4px 9px rgba(120,64,30,.7),
-      0 0 0 0 rgba(196,126,77,.55);
+      0 6px 14px rgba(16,24,20,.30),
+      inset 0 2px 6px rgba(214,140,155,.26),
+      inset 0 -5px 10px rgba(40,12,20,.68);
     display:grid;place-items:center;
-    color:#3a2414;font-family:var(--serif);font-size:clamp(1.5rem,2.6vw,2.1rem);letter-spacing:.04em;
-    text-shadow:0 1px 0 rgba(255,225,190,.5), 0 -1px 1px rgba(80,40,15,.6);
-    animation:ember 3.4s ease-in-out infinite;
+    color:var(--bronze-hi);font-family:var(--display);font-size:clamp(1.5rem,2.6vw,2.1rem);letter-spacing:.06em;
+    text-shadow:0 1px 1px rgba(40,12,20,.75);
+    animation:wax 3.6s ease-in-out infinite;
     transition:opacity .8s ease, transform .8s ease;
   }
-  .seal .seal-amp{opacity:.7;padding:0 .04em}
-  @keyframes ember{
-    0%,100%{box-shadow:0 3px 8px rgba(0,0,0,.45),inset 0 2px 5px rgba(255,225,190,.55),inset 0 -4px 9px rgba(120,64,30,.7),0 0 14px 3px rgba(196,126,77,.30)}
-    50%{box-shadow:0 3px 8px rgba(0,0,0,.45),inset 0 2px 5px rgba(255,225,190,.6),inset 0 -4px 9px rgba(120,64,30,.7),0 0 30px 8px rgba(230,176,122,.6)}
+  .seal .seal-amp{opacity:.75;padding:0 .04em}
+  /* όχι λάμψη (θα έδειχνε artifact πάνω σε λευκό χαρτί) — ένας αχνός κυματισμός */
+  @keyframes wax{
+    0%,100%{box-shadow:0 6px 14px rgba(16,24,20,.30),inset 0 2px 6px rgba(214,140,155,.26),inset 0 -5px 10px rgba(40,12,20,.68),0 0 0 0 rgba(173,121,79,0)}
+    50%{box-shadow:0 9px 20px rgba(16,24,20,.34),inset 0 2px 6px rgba(214,140,155,.30),inset 0 -5px 10px rgba(40,12,20,.68),0 0 0 8px rgba(173,121,79,.10)}
   }
 
   /* η λάμψη που ΖΕΣΤΑΙΝΕΙ την κρύα σκηνή (mix-blend screen) — πίσω από την κάρτα */
   .glow{
     left:50%;top:50%;width:150vw;height:130vh;
     transform:translate(-50%,-50%) translateZ(4px);
-    background:radial-gradient(33% 40% at 50% 50%, rgba(230,176,122,.85), rgba(196,126,77,.32) 46%, rgba(196,126,77,0) 70%);
+    background:radial-gradient(33% 40% at 50% 50%, rgba(210,162,119,.72), rgba(173,121,79,.28) 46%, rgba(173,121,79,0) 70%);
     mix-blend-mode:screen;pointer-events:none;
     opacity:1;transition:opacity 2.2s ease .5s;
   }
@@ -225,68 +242,77 @@
   /* overlays πάνω στον φάκελο */
   .scene-eyebrow{
     position:absolute;top:30px;left:0;right:0;text-align:center;z-index:9;
-    color:rgba(240,242,240,.86);transition:color .9s ease;
+    color:rgba(243,239,231,.88);transition:color .9s ease;
   }
-  /* πάνω στον κλειστό μπεζ φάκελο → σκούρο σμαραγδί για αναγνωσιμότητα */
-  html.js-anim:not(.opened) .scene-eyebrow{color:var(--emerald)}
+  /* λεπτή γραμμή σπασμένη από έναν ρόμβο — το κατώφλι πριν την κάρτα */
+  .scene-eyebrow::after{
+    content:"";display:block;width:min(220px,54vw);height:6px;margin:14px auto 0;opacity:.55;
+    background:
+      linear-gradient(45deg,currentColor,currentColor) no-repeat 50% 50%/4px 4px,
+      linear-gradient(90deg,transparent,currentColor 20%,currentColor 42%,transparent 43%) no-repeat 0 50%/100% 1px,
+      linear-gradient(90deg,transparent 57%,currentColor 58%,currentColor 80%,transparent) no-repeat 0 50%/100% 1px;
+  }
+  /* πάνω στον κλειστό ivory φάκελο → σχεδόν μαύρο για αναγνωσιμότητα */
+  html.js-anim:not(.opened) .scene-eyebrow{color:var(--ink)}
 
   /* ---- τα ονόματα (ακόμη μέσα στη νύχτα, κάτω από τον φάκελο) ---- */
-  .nightmeta{background:var(--night);color:var(--frost);padding:60px 22px 88px}
+  .nightmeta{background:var(--ink);color:var(--ivory);padding:60px 22px 88px}
   .reveal-meta{
     text-align:center;
     transition:opacity .9s ease .5s, transform .9s ease .5s;
   }
   .names{
-    font-family:var(--serif);font-weight:400;line-height:1.02;
-    font-size:clamp(2.3rem,7.6vw,3.9rem);letter-spacing:.012em;margin:0;color:var(--frost);
+    font-family:var(--display);font-weight:400;line-height:1.02;
+    font-size:clamp(2.3rem,7.6vw,3.9rem);letter-spacing:.012em;margin:0;color:var(--ivory);
   }
-  .names .amp{font-style:italic;color:var(--amber);font-size:.66em;padding:0 .12em;vertical-align:.05em}
-  .meta-rule{width:1px;height:26px;background:linear-gradient(var(--ice),transparent);margin:13px auto 11px}
-  .meta-date{font-size:.78rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--ice)}
-  .meta-venue{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(240,242,240,.55);margin-top:8px}
+  .names .amp{font-style:italic;color:var(--bronze);font-size:.66em;padding:0 .12em;vertical-align:.05em}
+  .meta-rule{width:1px;height:30px;background:linear-gradient(var(--bronze),transparent);margin:15px auto 13px}
+  .meta-date{font-size:.84rem;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--greige)}
+  .meta-venue{font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(201,192,179,.7);margin-top:9px}
   .meta-count{
     display:flex;justify-content:center;align-items:flex-start;
     gap:clamp(5px,2vw,13px);margin:20px auto 2px;
   }
   .mc-unit{display:flex;flex-direction:column;align-items:center;gap:7px;min-width:clamp(42px,12vw,60px)}
   .mc-num{
-    font-family:var(--serif);line-height:.92;color:var(--frost);
+    font-family:var(--display);line-height:.92;color:var(--ivory);
     font-size:clamp(1.8rem,6.2vw,2.8rem);font-variant-numeric:tabular-nums;
-    text-shadow:0 0 24px rgba(143,168,184,.4);
+    text-shadow:0 0 26px rgba(173,121,79,.26);
   }
-  .mc-lab{font-size:.54rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ice)}
+  .mc-lab{font-size:.6rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--greige)}
   .mc-sep{
-    font-family:var(--serif);line-height:.92;color:var(--amber);opacity:.72;
+    font-family:var(--display);line-height:.92;color:var(--bronze);opacity:.8;
     font-size:clamp(1.5rem,5.2vw,2.4rem);margin-top:.12em;
   }
   .mc-done{
-    font-family:var(--serif);font-style:italic;color:var(--ember);
+    font-family:var(--display);font-style:italic;color:var(--bronze-hi);
     font-size:clamp(1.1rem,3vw,1.4rem);margin:18px auto 2px;
   }
 
   .hint{
     position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:9;
-    font-size:.68rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:rgba(10,77,60,.82);
+    font-size:.74rem;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:rgba(16,24,20,.82);
     opacity:0;transition:opacity .6s ease;
   }
 
   .replay{
     margin:20px auto 0;display:block;width:fit-content;   /* δική του σειρά, ΚΑΤΩ από το ημερολόγιο */
-    border:1px solid rgba(143,168,184,.4);background:transparent;color:var(--ice);
-    font-family:var(--sans);font-size:.66rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
-    padding:9px 18px;border-radius:999px;cursor:pointer;
+    border:1px solid rgba(160,74,92,.85);background:transparent;color:var(--ivory);
+    font-family:var(--text);font-size:.72rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+    padding:10px 22px;border-radius:999px;cursor:pointer;
     opacity:0;pointer-events:none;transition:opacity .5s ease,border-color .2s,color .2s;
   }
-  .replay:hover{border-color:var(--amber);color:var(--ember)}
+  .replay:hover{border-color:#C05F73;color:var(--ivory-hi)}
 
-  /* ---- «Πρόσθεσε στο ημερολόγιο» (μέσα στη νύχτα) ---- */
+  /* ---- «Προσθήκη στο ημερολόγιο» (μέσα στη νύχτα) ---- */
   .cal{position:relative;display:inline-block;margin-top:26px}
   .cal-btn{
     display:inline-flex;align-items:center;gap:10px;
-    font-family:var(--sans);font-size:.64rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
-    color:#3a2414;background:var(--amber);border:1px solid var(--amber);border-radius:999px;
-    padding:12px 22px;cursor:pointer;
-    box-shadow:0 12px 28px -14px rgba(196,126,77,.95), inset 0 1px 0 rgba(255,225,190,.5);
+    font-family:var(--text);font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink);border:1px solid rgba(138,92,58,.9);border-radius:999px;
+    background:linear-gradient(180deg,#C08D63 0%,var(--bronze) 55%,#9C6A43 100%);
+    padding:13px 24px;cursor:pointer;
+    box-shadow:0 12px 28px -14px rgba(16,24,20,.9), inset 0 1px 0 rgba(255,236,214,.45);
     transition:filter .2s,transform .05s;
   }
   .cal-btn:hover{filter:brightness(1.06)}
@@ -297,23 +323,23 @@
   .cal-menu{
     position:absolute;left:50%;top:calc(100% + 12px);transform:translateX(-50%);
     z-index:30;width:max-content;max-width:min(300px,84vw);
-    background:var(--frost);border:1px solid var(--line-strong);border-radius:13px;padding:7px;
-    box-shadow:0 26px 54px -22px rgba(0,0,0,.75);text-align:left;
+    background:var(--ivory-hi);border:1px solid rgba(173,121,79,.32);border-radius:13px;padding:7px;
+    box-shadow:0 26px 54px -22px rgba(10,16,13,.7);text-align:left;
   }
   .cal-menu::before{
     content:"";position:absolute;left:50%;top:-7px;width:13px;height:13px;transform:translateX(-50%) rotate(45deg);
-    background:var(--frost);border-left:1px solid var(--line-strong);border-top:1px solid var(--line-strong);border-radius:3px 0 0 0;
+    background:var(--ivory-hi);border-left:1px solid rgba(173,121,79,.32);border-top:1px solid rgba(173,121,79,.32);border-radius:3px 0 0 0;
   }
   .cal-item{
     position:relative;display:flex;align-items:center;gap:12px;
     padding:12px 14px;border-radius:9px;text-decoration:none;
-    font-family:var(--sans);font-size:.86rem;font-weight:500;letter-spacing:.01em;color:var(--slate);
+    font-family:var(--text);font-size:.95rem;font-weight:500;letter-spacing:.01em;color:var(--ink);
     transition:background .15s;
   }
   .cal-item + .cal-item{margin-top:2px}
-  .cal-item:hover,.cal-item:focus-visible{background:rgba(196,126,77,.13);outline:none}
-  .cal-item .ci{width:19px;height:19px;flex:0 0 auto;color:var(--ice);transition:color .15s}
-  .cal-item:hover .ci,.cal-item:focus-visible .ci{color:var(--amber)}   /* ζεστό amber στο hover */
+  .cal-item:hover,.cal-item:focus-visible{background:rgba(173,121,79,.13);outline:none}
+  .cal-item .ci{width:19px;height:19px;flex:0 0 auto;color:var(--bronze-lo);transition:color .15s}
+  .cal-item:hover .ci,.cal-item:focus-visible .ci{color:var(--bronze)}   /* μπρονζέ στο hover */
   .cal-sub{opacity:.55;font-size:.78em}
 
   /* honeypot — εκτός οθόνης, αόρατο */
@@ -321,11 +347,18 @@
 
   .scrollcue{
     position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:9;
-    display:flex;flex-direction:column;align-items:center;gap:9px;
-    font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(240,242,240,.5);
-    opacity:0;transition:opacity .6s ease;
+    display:flex;flex-direction:column;align-items:center;gap:11px;white-space:nowrap;
+    font-size:.66rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:rgba(243,239,231,.62);
+    /* base = ανοιχτός φάκελος (χωρίς JS / reduced-motion) → ορατό */
+    opacity:1;transition:opacity .6s ease;
   }
-  .scrollcue .bar{width:1px;height:34px;background:linear-gradient(var(--ice),transparent);
+  /* λεπτές γραμμές εκατέρωθεν της ετικέτας, όπως στο σχέδιο */
+  .scrollcue > span:first-child{display:flex;align-items:center;gap:14px}
+  .scrollcue > span:first-child::before,
+  .scrollcue > span:first-child::after{
+    content:"";width:clamp(20px,7vw,42px);height:1px;background:var(--bronze);opacity:.6;
+  }
+  .scrollcue .bar{width:1px;height:30px;background:linear-gradient(var(--bronze),transparent);
     animation:cue 2.6s ease-in-out infinite;transform-origin:top}
   @keyframes cue{0%,100%{transform:scaleY(.35);opacity:.4}50%{transform:scaleY(1);opacity:.9}}
 
@@ -377,63 +410,73 @@
   }
 
   /* =====================================================================
-     ΞΗΜΕΡΩΜΑ — μετάβαση νύχτα → μέρα
+     ΜΕΤΑΒΑΣΗ — από μέσα στον φάκελο, πίσω στο φως
      ===================================================================== */
   .dawn{
-    height:26vh;min-height:150px;
-    background:linear-gradient(180deg,
-      var(--night) 0%, #143040 26%, #3a5a6a 52%, var(--ice) 76%, var(--frost) 100%);
+    height:24vh;min-height:140px;
+    background:
+      radial-gradient(120% 74% at 50% 100%, rgba(173,121,79,.34), transparent 72%),
+      linear-gradient(180deg,
+        var(--ink) 0%, #1B2A22 30%, #4E4A3E 58%, #A9A08D 80%, var(--ivory) 100%);
   }
 
   /* =====================================================================
-     ΗΜΕΡΑ — ACT 2 & 3 (frosty off-white)
+     ΤΟ ΦΩΣ — ACT 2 & 3 (ζεστό ivory)
      ===================================================================== */
   .day{position:relative;padding:104px 0}
-  .day-eyebrow{display:block;text-align:center;color:var(--amber);margin-bottom:18px}
+  .day-eyebrow{display:block;text-align:center;color:var(--bronze-lo);margin-bottom:18px}
   .block-title{
-    text-align:center;font-family:var(--serif);font-weight:400;color:var(--emerald);
-    font-size:clamp(1.9rem,5.4vw,2.7rem);letter-spacing:.01em;margin:0 0 14px;
+    text-align:center;font-family:var(--display);font-weight:400;color:var(--cypress);
+    font-size:clamp(1.32rem,3.9vw,1.85rem);letter-spacing:.17em;text-transform:uppercase;
+    margin:0 0 14px;
   }
 
   /* ---- RSVP ---- */
   .rsvp .wrap{max-width:600px}
+  .rsvp .block-title{margin-bottom:34px}
   .card-reply{
-    background:var(--surface);border-radius:14px;padding:clamp(26px,5vw,46px);
-    border:1px solid rgba(10,77,60,.22);
-    box-shadow:0 30px 60px -40px rgba(27,59,90,.55), 0 0 0 6px rgba(10,77,60,.04);
+    background:var(--ivory-hi);border-radius:14px;padding:clamp(26px,5vw,46px);
+    border:1px solid rgba(23,70,56,.20);
+    box-shadow:0 30px 60px -40px rgba(74,52,32,.45), 0 0 0 6px rgba(23,70,56,.035);
     position:relative;
   }
   .card-reply::before{
-    content:"";position:absolute;inset:9px;border:1px solid rgba(10,77,60,.16);border-radius:8px;pointer-events:none;
+    content:"";position:absolute;inset:9px;border:1px solid rgba(173,121,79,.34);border-radius:8px;pointer-events:none;
   }
   form{display:flex;flex-direction:column;gap:24px;position:relative}
   .field{display:flex;flex-direction:column;gap:9px}
-  label.lab{font-size:.66rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ice)}
+  label.lab{font-size:.74rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze-lo)}
   input[type=text],input[type=number]{
-    font-family:var(--sans);font-size:1rem;color:var(--slate);
-    background:var(--frost);border:1px solid var(--line-strong);border-radius:8px;
+    font-family:var(--text);font-size:1.06rem;color:var(--ink);
+    background:var(--ivory);border:1px solid var(--hairline);border-radius:8px;
     padding:14px 15px;width:100%;transition:border-color .2s,box-shadow .2s;
   }
-  input::placeholder{color:#9fb0ad}
-  input:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(196,126,77,.22)}
+  input::placeholder{color:var(--muted)}
+  input:focus{outline:none;border-color:var(--bronze);box-shadow:0 0 0 3px rgba(173,121,79,.25)}
 
-  .choice{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .choice{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .choice input{position:absolute;opacity:0;pointer-events:none}
   .choice label{
     display:flex;align-items:center;justify-content:center;gap:9px;
-    padding:15px;border:1px solid var(--line-strong);border-radius:8px;background:var(--frost);
-    font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-    cursor:pointer;transition:all .18s;user-select:none;color:var(--slate);
+    padding:15px 8px;border:1px solid var(--hairline);border-radius:8px;background:var(--ivory);
+    font-size:.71rem;font-weight:600;letter-spacing:.012em;text-transform:uppercase;
+    text-align:center;line-height:1.35;
+    cursor:pointer;transition:all .18s;user-select:none;color:var(--cypress);
   }
-  .choice label .ic{width:8px;height:8px;border-radius:50%;background:var(--ice);transition:background .18s,box-shadow .18s}
-  .choice label[for=no]:hover{border-color:var(--ice)}
-  .choice label[for=yes]:hover{border-color:var(--amber)}
-  /* «Ναι» = ζεστό amber· «Όχι» = κρύο ice */
-  #yes:checked + label{border-color:var(--amber);background:rgba(196,126,77,.12);color:#9c6038}
-  #yes:checked + label .ic{background:var(--amber);box-shadow:0 0 10px 1px rgba(196,126,77,.7)}
-  #no:checked + label{border-color:var(--ice);background:rgba(143,168,184,.14);color:var(--navy)}
-  #no:checked + label .ic{background:var(--navy)}
-  .choice input:focus-visible + label{outline:2px solid var(--amber);outline-offset:2px}
+  /* άδειος κρίκος· γεμίζει όταν επιλεγεί — όπως στο σχέδιο */
+  .choice label .ic{
+    flex:none;width:12px;height:12px;border-radius:50%;background:transparent;
+    border:1px solid var(--hairline);
+    transition:background .18s,border-color .18s,box-shadow .18s;
+  }
+  .choice label[for=no]:hover{border-color:var(--cypress)}
+  .choice label[for=yes]:hover{border-color:var(--bronze)}
+  /* «Ναι» = μπορντό, σαν τη σφραγίδα· «Όχι» = ήσυχο κυπαρισσί */
+  #yes:checked + label{border-color:var(--wine);background:rgba(101,41,56,.07);color:var(--wine)}
+  #yes:checked + label .ic{background:var(--wine);border-color:var(--wine);box-shadow:0 0 0 3px rgba(101,41,56,.13)}
+  #no:checked + label{border-color:var(--cypress);background:rgba(23,70,56,.06);color:var(--cypress)}
+  #no:checked + label .ic{background:var(--cypress);border-color:var(--cypress)}
+  .choice input:focus-visible + label{outline:2px solid var(--bronze);outline-offset:2px}
 
   /* πεδία που εμφανίζονται μόνο με «Ναι» */
   .when-yes{
@@ -445,35 +488,45 @@
   form.is-yes .when-yes{grid-template-rows:1fr;opacity:1;margin-top:0}
 
   .btn{
-    font-family:var(--sans);font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-    color:#fff;background:var(--amber);border:1px solid var(--amber);border-radius:8px;
-    padding:17px 24px;cursor:pointer;transition:filter .2s,transform .05s,box-shadow .2s;
-    box-shadow:0 10px 24px -12px rgba(196,126,77,.9);
+    font-family:var(--text);font-size:.86rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--ivory);border:1px solid rgba(126,82,52,.95);border-radius:8px;
+    background:linear-gradient(180deg,#A16C44 0%,#8B5B3A 58%,#764C30 100%);
+    padding:17px 18px;cursor:pointer;transition:filter .2s,transform .05s,box-shadow .2s;
+    box-shadow:0 10px 24px -12px rgba(126,82,52,.9), inset 0 1px 0 rgba(255,236,214,.26);
+    text-shadow:0 1px 1px rgba(58,32,14,.5);
   }
   .btn:hover{filter:brightness(1.05)}
   .btn:active{transform:translateY(1px)}
   .btn:disabled{opacity:.55;cursor:default;box-shadow:none}
 
-  .formnote{font-size:.86rem;color:var(--slate);opacity:.7;text-align:center;margin:0 0 28px}
-  .err{color:#b03a3a;font-size:.82rem;min-height:1em;font-weight:500}
+  .err{color:var(--wine);font-size:.92rem;min-height:1em;font-weight:500}
 
   .done{text-align:center;padding:8px 0;animation:rise .6s ease both}
-  .done .mark{font-family:var(--serif);font-size:clamp(1.7rem,5vw,2.3rem);margin:0 0 10px;color:var(--emerald)}
+  .done .mark{font-family:var(--display);font-size:clamp(1.7rem,5vw,2.3rem);margin:0 0 10px;color:var(--cypress)}
   .done .seal-mini{
     width:54px;height:54px;border-radius:50%;margin:0 auto 18px;
-    background:radial-gradient(circle at 38% 30%, var(--ember), var(--amber) 46%, #9a5a30 100%);
-    box-shadow:inset 0 2px 5px rgba(255,225,190,.55),inset 0 -4px 9px rgba(120,64,30,.7),0 8px 18px -8px rgba(196,126,77,.8);
-    display:grid;place-items:center;color:#3a2414;font-family:var(--serif);
+    background:radial-gradient(circle at 38% 30%, var(--wine-hi), var(--wine) 46%, var(--wine-lo) 100%);
+    box-shadow:inset 0 2px 6px rgba(214,140,155,.26),inset 0 -4px 9px rgba(40,12,20,.68),0 8px 18px -8px rgba(101,41,56,.75);
+    display:grid;place-items:center;color:var(--bronze-hi);font-family:var(--display);
   }
-  .done p{margin:0;color:var(--slate);opacity:.78}
+  .done p{margin:0;color:var(--ink);opacity:.8}
   @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
   /* ---- FOOTER ---- */
-  footer{padding:72px 28px 64px;text-align:center;background:var(--frost)}
-  footer .fmono{font-family:var(--serif);color:var(--emerald);font-size:1.1rem;letter-spacing:.3em;margin-bottom:14px}
-  footer .fnames{font-family:var(--serif);font-size:1.5rem;letter-spacing:.02em;color:var(--slate)}
-  footer .fdate{font-size:.68rem;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--ice);margin-top:12px}
-  footer .fnote{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);opacity:.55;margin-top:22px}
+  footer{padding:72px 28px 64px;text-align:center;background:var(--ivory)}
+  footer .fmono{font-family:var(--display);color:var(--bronze);font-size:1.2rem;letter-spacing:.34em;margin-bottom:14px}
+  footer .fnames{font-family:var(--display);font-size:1.6rem;letter-spacing:.02em;color:var(--ink)}
+  footer .fdate{font-size:.76rem;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--bronze-lo);margin-top:12px}
+  footer .fnote{font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cypress);opacity:.6;margin-top:24px}
+
+  /* οι δύο βέρες — το ίδιο μοτίβο που υπάρχει μέσα στην υδατογραφία */
+  .frings{display:flex;align-items:center;justify-content:center;gap:15px;margin-top:26px;color:var(--bronze)}
+  .frings i{width:clamp(24px,9vw,52px);height:1px;background:currentColor;opacity:.45}
+  .frings svg{width:46px;height:24px;flex:none;opacity:.9}
+
+  /* κλαδί ελιάς — ασημί-πράσινο, όπως τα φύλλα από την ανάποδη */
+  .sprig{display:block;width:min(232px,60vw);height:auto;margin:38px auto 0;color:var(--greige);opacity:.34}
+  .sprig .stem{opacity:.6}
 
   /* reveal-on-scroll */
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease}
@@ -487,6 +540,11 @@
     *{animation:none !important}
     .reveal{opacity:1;transform:none;transition:none}
     .card,.env-flap,.env-pocket,.glow,.seal{transition:none}
+  }
+
+  /* οι δύο επιλογές θέλουν χώρο· κάτω από αυτό το πλάτος μπαίνουν η μία κάτω από την άλλη */
+  @media (max-width:640px){
+    .choice{grid-template-columns:1fr}
   }
 
   @media (max-width:560px){
@@ -517,8 +575,8 @@
       </button>
     </div>
 
-    <p class="hint" id="hint">Αγγίξτε για να ανοίξετε</p>
-    <div class="scrollcue" aria-hidden="true"><span>Συνεχίστε</span><span class="bar"></span></div>
+    <p class="hint" id="hint">Ανοίξτε τον φάκελό μας</p>
+    <div class="scrollcue" aria-hidden="true"><span>Δείτε τις λεπτομέρειες</span><span class="bar"></span></div>
     <div class="sr-only" aria-live="polite" id="live"></div>
   </header>
 
@@ -539,13 +597,13 @@
         <div class="mc-unit"><span class="mc-num" id="hcs">–</span><span class="mc-lab">Δευτ.</span></div>
       </div>
 
-      <!-- Πρόσθεσε στο ημερολόγιο (εμφανίζεται μόνο με JS· ο κώδικας φτιάχνει τα links) -->
+      <!-- Προσθήκη στο ημερολόγιο (εμφανίζεται μόνο με JS· ο κώδικας φτιάχνει τα links) -->
       <div class="cal" id="cal" hidden>
         <button class="cal-btn" id="calBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="calMenu">
           <svg class="cal-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 9.5h17M8 3.5v3M16 3.5v3"/>
           </svg>
-          <span class="cal-txt">Πρόσθεσε στο ημερολόγιο</span>
+          <span class="cal-txt">Προσθήκη στο ημερολόγιο</span>
           <svg class="cal-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"/></svg>
         </button>
         <div class="cal-menu" id="calMenu" role="menu" hidden>
@@ -565,6 +623,30 @@
       </div>
 
       <button class="replay" id="replay" type="button">Δείτε ξανά τον φάκελο</button>
+
+      <!-- κλαδί ελιάς — το ίδιο μοτίβο που υπάρχει μέσα στην υδατογραφία -->
+      <svg class="sprig" viewBox="0 0 244 98" fill="none" aria-hidden="true" focusable="false">
+        <defs>
+          <path id="olv" d="M0 0 C 8 -3.6 21 -4.2 31 -1.5 C 21 2.6 8 3.4 0 0 Z"/>
+        </defs>
+        <path class="stem" d="M14 84 C 62 80 122 64 226 18"
+              stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        <g fill="currentColor">
+            <use href="#olv" transform="translate(24.3 83.0) rotate(-40.6) scale(0.80)"/>
+            <use href="#olv" transform="translate(36.5 81.3) rotate(21.3) scale(0.87)"/>
+            <use href="#olv" transform="translate(49.4 79.1) rotate(-44.7) scale(0.94)"/>
+            <use href="#olv" transform="translate(63.1 76.3) rotate(17.3) scale(0.99)"/>
+            <use href="#olv" transform="translate(77.5 72.8) rotate(-48.5) scale(1.02)"/>
+            <use href="#olv" transform="translate(93.0 68.5) rotate(13.8) scale(1.02)"/>
+            <use href="#olv" transform="translate(109.4 63.5) rotate(-51.7) scale(0.99)"/>
+            <use href="#olv" transform="translate(127.0 57.7) rotate(10.9) scale(0.95)"/>
+            <use href="#olv" transform="translate(145.8 50.9) rotate(-54.4) scale(0.88)"/>
+            <use href="#olv" transform="translate(166.0 43.2) rotate(8.5) scale(0.81)"/>
+            <use href="#olv" transform="translate(187.6 34.5) rotate(-56.5) scale(0.72)"/>
+            <use href="#olv" transform="translate(207.7 26.0) rotate(6.7) scale(0.72)"/>
+            <use href="#olv" transform="translate(222.0 19.0) rotate(-35.9) scale(0.62)"/>
+        </g>
+      </svg>
     </div>
   </section>
 
@@ -576,7 +658,6 @@
     <div class="wrap">
       <span class="eyebrow day-eyebrow">Η απάντησή σας</span>
       <h2 class="block-title">Θα είστε μαζί μας;</h2>
-      <p class="formnote" id="rsvpNote">Παρακαλούμε απαντήστε για να ξέρουμε ότι σας περιμένουμε.</p>
 
       <div class="card-reply">
         <form id="rsvpForm" novalidate>
@@ -594,16 +675,16 @@
             <label class="lab">Θα παρευρεθείτε;</label>
             <div class="choice">
               <input type="radio" id="yes" name="attending" value="Ναι" />
-              <label for="yes"><span class="ic"></span>Ναι, θα έρθω</label>
+              <label for="yes"><span class="ic"></span>Με χαρά, θα είμαι εκεί</label>
               <input type="radio" id="no" name="attending" value="Όχι" />
-              <label for="no"><span class="ic"></span>Δυστυχώς όχι</label>
+              <label for="no"><span class="ic"></span>Δυστυχώς, δεν θα μπορέσω</label>
             </div>
           </div>
 
           <div class="when-yes" id="whenYes">
             <div class="inner">
               <div class="field">
-                <label class="lab" for="guests">Πόσα άτομα συνολικά;</label>
+                <label class="lab" for="guests">Συνολικός αριθμός ατόμων, μαζί με εσάς <span style="text-transform:none;letter-spacing:0;opacity:.6">(υποχρεωτικό)</span></label>
                 <input type="number" id="guests" name="guests" min="1" max="20" value="1" inputmode="numeric" />
               </div>
               <div class="field">
@@ -614,7 +695,7 @@
           </div>
 
           <div class="err" id="err" role="alert"></div>
-          <button type="submit" class="btn" id="submit">Στείλτε την απάντηση</button>
+          <button type="submit" class="btn" id="submit">Επιβεβαίωση απάντησης</button>
         </form>
 
         <div class="done" id="done" hidden>
@@ -631,6 +712,14 @@
     <div class="fmono">A · D</div>
     <div class="fnames" id="fnames"></div>
     <div class="fdate" id="fdate"></div>
+    <div class="frings" aria-hidden="true">
+      <i></i>
+      <svg viewBox="0 0 46 24" fill="none" focusable="false">
+        <circle cx="17.5" cy="12" r="7.4" stroke="currentColor" stroke-width="1.2"/>
+        <circle cx="28.5" cy="12" r="7.4" stroke="currentColor" stroke-width="1.2"/>
+      </svg>
+      <i></i>
+    </div>
     <div class="fnote">Θα ακολουθήσει επίσημη πρόσκληση</div>
   </footer>
 
@@ -655,10 +744,10 @@ const CONFIG = {
 
   // Χώρος
   venueName: "",
-  venueArea: "Κηφισιά, Αθήνα",
+  venueArea: "Νέα Κηφισιά, Αθήνα",
   mapUrl:    "https://www.google.com/maps",   // βάλε το πραγματικό link του χάρτη
 
-  // 📅 Κουμπί «Πρόσθεσε στο ημερολόγιο» (Google / Apple / Outlook / οτιδήποτε)
+  // 📅 Κουμπί «Προσθήκη στο ημερολόγιο» (Google / Apple / Outlook / οτιδήποτε)
   eventTitle:    "",   // κενό = «Γάμος — Άννα & Δημήτρης» αυτόματα
   durationHours: 5,    // πόσες ώρες κρατά η εκδήλωση (18:00 → 23:00)
 
@@ -858,13 +947,19 @@ form.addEventListener("submit", async (ev)=>{
   if (!name){ err.textContent = "Γράψτε το όνομά σας."; $("name").focus(); return; }
   if (!attending){ err.textContent = "Επιλέξτε αν θα παρευρεθείτε."; return; }
 
+  const isYes = attending === "Ναι";
+  const guests = Number($("guests").value);
+  if (isYes && !(Number.isInteger(guests) && guests >= 1 && guests <= 20)){
+    err.textContent = "Συμπληρώστε τον συνολικό αριθμό ατόμων (1–20).";
+    $("guests").focus(); return;
+  }
+
   const hp = $("website") ? $("website").value.trim() : "";   // honeypot (γεμάτο = bot)
 
-  const isYes = attending === "Ναι";
   const payload = {
     name,
     attending,
-    guests: isYes ? ($("guests").value || "1") : "0",
+    guests: isYes ? String(guests) : "0",
     companions: isYes ? $("companions").value.trim() : "",
     token: guestToken,
     website: hp,
@@ -889,9 +984,8 @@ form.addEventListener("submit", async (ev)=>{
       await new Promise(r=>setTimeout(r,600)); // demo / honeypot
     }
     form.hidden = true;
-    $("rsvpNote").hidden = true;
     $("doneMsg").textContent = isYes
-      ? "Χαρήκαμε πολύ! Ανυπομονούμε να σας δούμε στην Κηφισιά."
+      ? "Χαρήκαμε πολύ! Ανυπομονούμε να σας δούμε στη Νέα Κηφισιά."
       : "Θα μας λείψετε. Ευχαριστούμε που μας ενημερώσατε.";
     if (isDemo){ $("doneMsg").textContent += "  (demo — σύνδεσε το endpoint για πραγματική καταχώρηση)"; }
     $("done").hidden = false;
@@ -899,7 +993,7 @@ form.addEventListener("submit", async (ev)=>{
   }catch(e){
     err.textContent = "Κάτι πήγε στραβά. Δοκιμάστε ξανά σε λίγο.";
     btn.disabled = false;
-    btn.textContent = "Στείλτε την απάντηση";
+    btn.textContent = "Επιβεβαίωση απάντησης";
   }
 });
 </script>
