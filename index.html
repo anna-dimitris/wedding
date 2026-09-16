@@ -11,7 +11,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Άννα & Δημήτρης · Save the Date" />
 <meta property="og:description" content="Σάββατο 23 Ιανουαρίου 2027 · Νέα Κηφισιά" />
-<meta property="og:image" content="wedding.jpg" />
+<meta property="og:image" content="wedding.jpg?v=1b8b9353" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -584,6 +584,48 @@
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease}
   .reveal.in{opacity:1;transform:none}
 
+  /* ---- ΜΟΥΣΙΚΗ ----
+     Μπρονζέ κουμπί, στην ίδια μεταλλική οικογένεια με τη σφραγίδα.
+     Γεμάτο μέταλλο = παίζει · άδειο περίγραμμα με διαγώνιο = σίγαση.
+     Διαβάζεται και πάνω στη νύχτα (ink) και πάνω στο χαρτί (ivory). */
+  .bgm{
+    position:fixed;z-index:40;
+    left:calc(18px + env(safe-area-inset-left));
+    bottom:calc(18px + env(safe-area-inset-bottom));
+    width:42px;height:42px;border-radius:50%;
+    display:grid;place-items:center;cursor:pointer;
+    border:1px solid var(--bronze-lo);
+    background:radial-gradient(circle at 36% 30%, var(--bronze-hi), var(--bronze) 52%, var(--bronze-lo) 100%);
+    color:var(--ivory-hi);
+    box-shadow:0 2px 8px rgba(16,24,20,.28);
+    transition:background .25s ease,color .25s ease,border-color .25s ease,box-shadow .25s ease;
+  }
+  .bgm .note{font-family:var(--display);font-size:1.2rem;line-height:1;transform:translateY(-1px)}
+  .bgm:hover{box-shadow:0 3px 12px rgba(16,24,20,.38)}
+
+  /* σίγαση — το μέταλλο σβήνει, μένει το χάραγμα */
+  .bgm.off{
+    background:transparent;
+    border-color:var(--bronze);
+    color:var(--bronze);
+    box-shadow:none;
+  }
+  .bgm.off::after{
+    content:"";position:absolute;left:10px;right:10px;top:50%;
+    height:1px;background:currentColor;transform:rotate(-40deg);
+  }
+
+  /* στο κινητό μαζεύεται λίγο, να μην ακουμπάει το «Ανοίξτε τον φάκελό μας» */
+  @media (max-width:420px){
+    .bgm{
+      width:38px;height:38px;
+      left:calc(11px + env(safe-area-inset-left));
+      bottom:calc(11px + env(safe-area-inset-bottom));
+    }
+    .bgm .note{font-size:1.05rem}
+    .bgm.off::after{left:9px;right:9px}
+  }
+
   /* =====================================================================
      ΜΕΙΩΜΕΝΗ ΚΙΝΗΣΗ + RESPONSIVE
      ===================================================================== */
@@ -592,6 +634,7 @@
     *{animation:none !important}
     .reveal{opacity:1;transform:none;transition:none}
     .card,.env-flap,.env-pocket,.glow,.seal{transition:none}
+    .bgm{transition:none}
     .people,.person{transition:none}
   }
 
@@ -619,7 +662,10 @@
 <body>
 
   <!-- ===== Μουσική υπόκρουση ===== -->
-  <audio id="bgm" src="music.mp3" autoplay loop preload="auto" playsinline></audio>
+  <audio id="bgm" src="music.mp3?v=3e2e6fbf" autoplay loop preload="auto" playsinline></audio>
+  <button class="bgm" id="bgmToggle" type="button" aria-pressed="true" aria-label="Σίγαση μουσικής">
+    <span class="note" aria-hidden="true">♪</span>
+  </button>
 
   <!-- ============================ ACT 1 · Η ΝΥΧΤΑ ============================ -->
   <header class="scene" id="scene">
@@ -630,7 +676,7 @@
     <div class="env" id="envelope">
       <div class="glow" aria-hidden="true"></div>
       <figure class="card" id="card">
-        <img src="wedding.jpg"
+        <img src="wedding.jpg?v=1b8b9353"
              alt="Υδατογραφία της Άννας και του Δημήτρη σε χειμωνιάτικο καφέ δίπλα σε φωτεινό τζουκ-μποξ, να κρατούν κούπες καφέ. Γράφει «Save the Date», το μονόγραμμα «A D», «23 · 01 · 2027», «Κηφισιά» και «Θα ακολουθήσει επίσημη πρόσκληση»." />
       </figure>
       <div class="env-pocket" aria-hidden="true"></div>
@@ -1220,24 +1266,42 @@ form.addEventListener("submit", async (ev)=>{
 });
 </script>
 <script>
-/* Μουσική: ξεκινά μόλις μπει κάποιος στο site.
-   Αν ο browser μπλοκάρει το autoplay, ξεκινά στο πρώτο άγγιγμα/κλικ/scroll. */
+/* Μουσική: ξεκινά μόλις μπει κάποιος στο site. Αν ο browser μπλοκάρει το
+   autoplay, ξεκινά στο πρώτο άγγιγμα/κλικ/scroll. Το κουμπί κάτω αριστερά
+   κάνει σίγαση — και σέβεται την επιλογή: δεν ξαναρχίζει από μόνη της. */
 (function(){
-  const bgm = document.getElementById("bgm");
+  const bgm    = document.getElementById("bgm");
+  const btn    = document.getElementById("bgmToggle");
+  const EVENTS = ["pointerdown","keydown","touchstart","scroll"];
+  let wantsSound = true;
+
   bgm.volume = 0.5;
 
-  function play(){
-    bgm.play().then(() => {
-      ["pointerdown","keydown","touchstart","scroll"].forEach(ev =>
-        document.removeEventListener(ev, play)
-      );
-    }).catch(() => {});
+  function unarm(){ EVENTS.forEach(e => document.removeEventListener(e, tryPlay)); }
+
+  function tryPlay(){
+    if (!wantsSound){ unarm(); return; }
+    bgm.play().then(unarm).catch(() => {});
   }
 
-  play();
-  ["pointerdown","keydown","touchstart","scroll"].forEach(ev =>
-    document.addEventListener(ev, play, {passive:true})
-  );
+  function sync(){
+    const on = !bgm.paused;
+    btn.classList.toggle("off", !on);
+    btn.setAttribute("aria-pressed", String(on));
+    btn.setAttribute("aria-label", on ? "Σίγαση μουσικής" : "Ενεργοποίηση μουσικής");
+  }
+
+  btn.addEventListener("click", () => {
+    wantsSound = bgm.paused;
+    if (wantsSound) bgm.play().catch(() => {}); else bgm.pause();
+  });
+
+  bgm.addEventListener("play", sync);
+  bgm.addEventListener("pause", sync);
+
+  tryPlay();
+  EVENTS.forEach(e => document.addEventListener(e, tryPlay, {passive:true}));
+  sync();
 })();
 </script>
 </body>
