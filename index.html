@@ -484,8 +484,60 @@
     transition:grid-template-rows .4s ease,opacity .4s ease,margin .4s ease;
     margin-top:-24px;
   }
-  .when-yes > .inner{overflow:hidden;display:flex;flex-direction:column;gap:24px}
+  /* padding + αρνητικό margin: το overflow:hidden που χρειάζεται το ξεδίπλωμα
+     αλλιώς θα έκοβε στα πλάγια το χρυσό δαχτυλίδι εστίασης των πεδίων */
+  .when-yes > .inner{
+    overflow:hidden;display:flex;flex-direction:column;gap:24px;
+    padding:0 6px;margin:0 -6px;
+  }
   form.is-yes .when-yes{grid-template-rows:1fr;opacity:1;margin-top:0}
+
+  /* ---- ένα «Ονοματεπώνυμο» για κάθε άτομο που έρχεται ----
+     Άδεια λίστα = καθόλου χώρος: το -24px ακυρώνει το ένα από τα δύο κενά του
+     .inner. Επειδή γίνεται με μετάβαση, το άνοιγμα της πρώτης γραμμής μένει ενιαίο. */
+  .people{display:flex;flex-direction:column;transition:margin-top .34s ease}
+  .people:empty,.people.is-emptying{margin-top:-24px}
+
+  /* κάθε άτομο ξεδιπλώνεται με τον ίδιο μηχανισμό που ανοίγει και το «Ναι» */
+  .person{
+    display:grid;grid-template-rows:1fr;
+    transition:grid-template-rows .34s ease,opacity .34s ease,margin-top .34s ease;
+  }
+  .person > .field{min-height:0}
+  .person.is-anim > .field{overflow:hidden}   /* μόνο όσο κινείται — αλλιώς κόβει την εστίαση */
+  .person + .person{margin-top:16px}
+  .person.is-shut{grid-template-rows:0fr;opacity:0;margin-top:0}
+
+  .lab-n{text-transform:none;letter-spacing:0;opacity:.6}   /* το «(2ο άτομο)» της ετικέτας */
+
+  .person-row{display:flex;align-items:stretch;gap:10px}
+  .person-row input{flex:1 1 auto;min-width:0}
+
+  /* «−» και «+»: ήσυχα χειριστήρια με τρίχινο περίγραμμα, στο χαρτί του φακέλου.
+     Το ΕΝΑ κουμπί της σελίδας μένει το μπρονζέ «Επιβεβαίωση απάντησης». */
+  .p-rm,.p-add{
+    font-family:var(--text);color:var(--bronze-lo);background:var(--ivory);
+    border:1px solid var(--hairline);border-radius:8px;
+    cursor:pointer;transition:border-color .2s,color .2s,opacity .2s;
+  }
+  .p-rm{flex:none;width:48px;padding:0;display:grid;place-items:center}
+  .p-add{
+    align-self:flex-start;display:inline-flex;align-items:center;gap:10px;
+    font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    padding:13px 18px;
+  }
+  .p-rm:hover,.p-add:not(:disabled):hover{border-color:var(--bronze);color:var(--bronze)}
+  .p-rm:active,.p-add:not(:disabled):active{transform:translateY(1px)}
+  .p-add:disabled{opacity:.42;cursor:default}
+
+  /* το «−» και το «+» ζωγραφισμένα με γραμμές 1px — όπως τα πλαίσια της πρόσκλησης */
+  .pm{position:relative;display:block;width:13px;height:13px;flex:none}
+  .pm::before,.pm::after{
+    content:"";position:absolute;left:50%;top:50%;background:currentColor;
+    transform:translate(-50%,-50%);
+  }
+  .pm::before{width:13px;height:1px}
+  .pm.plus::after{width:1px;height:13px}
 
   .btn{
     font-family:var(--text);font-size:.86rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
@@ -540,6 +592,7 @@
     *{animation:none !important}
     .reveal{opacity:1;transform:none;transition:none}
     .card,.env-flap,.env-pocket,.glow,.seal{transition:none}
+    .people,.person{transition:none}
   }
 
   /* οι δύο επιλογές θέλουν χώρο· κάτω από αυτό το πλάτος μπαίνουν η μία κάτω από την άλλη */
@@ -551,9 +604,22 @@
     .day{padding:78px 0}
     .nightmeta{padding:48px 20px 70px}
   }
+
+  /* στενές οθόνες: το «−» μένει δίπλα στο πεδίο, απλώς στενεύει */
+  @media (max-width:400px){
+    .person-row{gap:8px}
+    .p-rm{width:44px}
+    .p-add{padding:12px 14px;letter-spacing:.12em}
+    /* μόνο η υπόδειξη μικραίνει λίγο, ώστε να χωρά ολόκληρη· το κείμενο που
+       γράφει ο καλεσμένος μένει στο κανονικό μέγεθος */
+    .person-row input::placeholder{font-size:.95rem}
+  }
 </style>
 </head>
 <body>
+
+  <!-- ===== Μουσική υπόκρουση ===== -->
+  <audio id="bgm" src="music.mp3" autoplay loop preload="auto" playsinline></audio>
 
   <!-- ============================ ACT 1 · Η ΝΥΧΤΑ ============================ -->
   <header class="scene" id="scene">
@@ -668,7 +734,7 @@
 
           <div class="field">
             <label class="lab" for="name">Ονοματεπώνυμο</label>
-            <input type="text" id="name" name="name" autocomplete="name" placeholder="Το όνομά σας" />
+            <input type="text" id="name" name="name" autocomplete="name" placeholder="Το όνομα σας" />
           </div>
 
           <div class="field">
@@ -687,10 +753,12 @@
                 <label class="lab" for="guests">Συνολικός αριθμός ατόμων, μαζί με εσάς <span style="text-transform:none;letter-spacing:0;opacity:.6">(υποχρεωτικό)</span></label>
                 <input type="number" id="guests" name="guests" min="1" max="20" value="1" inputmode="numeric" />
               </div>
-              <div class="field">
-                <label class="lab" for="companions">Ονόματα συνοδών <span style="text-transform:none;letter-spacing:0;opacity:.6">(προαιρετικό)</span></label>
-                <input type="text" id="companions" name="companions" placeholder="π.χ. Μαρία, Γιώργος" />
-              </div>
+              <!-- ένα πεδίο ανά επιπλέον άτομο· τα φτιάχνει το JS -->
+              <div class="people" id="people"></div>
+
+              <button type="button" class="p-add" id="addPerson" aria-label="Προσθήκη ατόμου">
+                <span class="pm plus" aria-hidden="true"></span>Προσθήκη ατόμου
+              </button>
             </div>
           </div>
 
@@ -700,7 +768,7 @@
 
         <div class="done" id="done" hidden>
           <div class="seal-mini" aria-hidden="true">✓</div>
-          <p class="mark" id="doneMark">Ευχαριστούμε.</p>
+          <p class="mark" id="doneMark">Ευχαριστούμε!</p>
           <p id="doneMsg"></p>
         </div>
       </div>
@@ -923,11 +991,157 @@ if (tick()) setInterval(tick, 1000);
 /* ====================== ΦΟΡΜΑ RSVP ====================== */
 const form = $("rsvpForm");
 function syncYes(){
-  // εμφάνιση πεδίων (άτομα + συνοδοί) μόνο όταν «Ναι»
-  form.classList.toggle("is-yes", $("yes").checked);
+  // εμφάνιση πεδίων (άτομα + ονόματα) μόνο όταν «Ναι»
+  const yes = $("yes").checked;
+  form.classList.toggle("is-yes", yes);
+  $("whenYes").inert = !yes;   // κλειστό = δεν πιάνεται ούτε με Tab
 }
 $("yes").addEventListener("change", syncYes);
 $("no").addEventListener("change", syncYes);
+syncYes();
+
+/* ============ ΤΑ ΑΤΟΜΑ ΠΟΥ ΕΡΧΟΝΤΑΙ ============
+   1ο άτομο = το πάνω «Ονοματεπώνυμο». Κάθε επιπλέον άτομο παίρνει το δικό του
+   πεδίο, και ο αριθμός μένει πάντα δεμένος με τα πεδία:
+        #guests === 1 + πλήθος πεδίων
+   Ισχύει και προς τις δύο κατευθύνσεις: γράφοντας τον αριθμό, ή με τα «+» / «−». */
+const peopleList = (function(){
+  const MAX  = 20;
+  const box  = $("people");
+  const num  = $("guests");
+  const add  = $("addPerson");
+  const calm = matchMedia("(prefers-reduced-motion: reduce)");
+
+  // ονόματα που κόπηκαν επειδή μίκρυνε ο αριθμός· επιστρέφουν αν ξαναμεγαλώσει
+  // (π.χ. όποιος γράφει «12» περνά στιγμιαία από το «1» — μη χαθούν τα γραμμένα)
+  let trimmed = [];
+
+  const rows   = () => Array.prototype.filter.call(box.children, el => !el.classList.contains("is-out"));
+  const inputs = () => rows().map(r => r.querySelector("input"));
+  const total  = () => rows().length + 1;
+  const clamp  = (n) => Math.min(MAX, Math.max(1, n));
+
+  /* τρέξε το fn όταν τελειώσει η μετάβαση — ή, αν δεν έρθει, στο δίχτυ ασφαλείας */
+  function after(el, fn){
+    let done = false;
+    const end = (e) => {
+      if (e && e.target !== el) return;              // μετάβαση παιδιού — όχι δική μας
+      if (done) return;
+      done = true; clearTimeout(t);
+      el.removeEventListener("transitionend", end); fn();
+    };
+    const t = setTimeout(end, 600);
+    el.addEventListener("transitionend", end);
+  }
+
+  /* ξαναριθμεί ετικέτες, ids και aria-labels — μετά από κάθε προσθήκη/αφαίρεση */
+  function renumber(){
+    rows().forEach((row, i) => {
+      const n  = i + 2;                 // το 1ο άτομο είναι ο/η ίδιος/α
+      const id = "person" + n;
+      const lab = row.querySelector("label");
+      const inp = row.querySelector("input");
+      inp.id = id;
+      inp.placeholder = "Ονοματεπώνυμο " + n + "ου ατόμου";
+      lab.htmlFor = id;
+      lab.querySelector(".lab-n").textContent = "(" + n + "ο άτομο)";
+      row.querySelector(".p-rm").setAttribute("aria-label", "Αφαίρεση " + n + "ου ατόμου");
+    });
+    add.disabled = total() >= MAX;      // το πολύ 20 άτομα
+    add.setAttribute("aria-disabled", add.disabled ? "true" : "false");
+  }
+
+  function addRow(value){
+    const row = document.createElement("div");
+    row.className = "person is-shut is-anim";
+    row.innerHTML =
+      '<div class="field">' +
+        '<label class="lab">Ονοματεπώνυμο <span class="lab-n"></span></label>' +
+        '<div class="person-row">' +
+          '<input type="text" autocomplete="off" />' +
+          '<button type="button" class="p-rm"><span class="pm" aria-hidden="true"></span></button>' +
+        '</div>' +
+      '</div>';
+    box.classList.remove("is-emptying");
+    box.appendChild(row);
+    row.querySelector("input").value = value || "";
+    if (calm.matches){ row.classList.remove("is-shut", "is-anim"); return row; }
+    void row.offsetHeight;              // κλείδωσε την κλειστή κατάσταση…
+    row.classList.remove("is-shut");    // …και ξεδίπλωσε
+    after(row, () => row.classList.remove("is-anim"));
+    return row;
+  }
+
+  function dropRow(row){
+    if (row.classList.contains("is-out")) return;
+    row.classList.add("is-out", "is-anim");                 // βγαίνει ήδη από το μέτρημα
+    if (!rows().length) box.classList.add("is-emptying");   // ήταν η τελευταία
+    const gone = () => { row.remove(); box.classList.remove("is-emptying"); };
+    if (calm.matches){ gone(); return; }
+    row.classList.add("is-shut");
+    after(row, gone);
+  }
+
+  /* φέρνει τα πεδία στον ζητούμενο αριθμό ατόμων (keep = κράτα/επίστρεψε ονόματα) */
+  function sync(n, keep){
+    n = clamp(n);
+    while (total() < n) addRow(keep ? trimmed.pop() : "");
+    while (total() > n){
+      const last = rows()[rows().length - 1];
+      if (!last) break;
+      if (keep) trimmed.push(last.querySelector("input").value);
+      dropRow(last);
+    }
+    renumber();
+  }
+
+  /* ——— ο αριθμός οδηγεί τα πεδία ——— */
+  num.addEventListener("input", () => {
+    const v = num.value.trim();
+    if (v === "") return;                                   // μισογραμμένο — μην πειράξεις τα πεδία
+    const n = Number(v);
+    if (!Number.isInteger(n) || n < 1 || n > MAX) return;   // εκτός ορίων — περίμενε το blur
+    sync(n, true);
+  });
+
+  function settle(){                                        // στο change/blur: τακτοποίησε
+    const n = Math.floor(Number(num.value));
+    if (!Number.isFinite(n) || n < 1){ num.value = String(total()); return; }   // κενό/άκυρο → κράτα τα πεδία
+    num.value = String(clamp(n));
+    sync(n, true);
+  }
+  num.addEventListener("change", settle);
+  num.addEventListener("blur", settle);
+
+  /* ——— τα πεδία οδηγούν τον αριθμό ——— */
+  add.addEventListener("click", () => {
+    if (add.disabled) return;
+    trimmed = [];                                   // ρητή προσθήκη → καθαρό πεδίο
+    const n = clamp(total() + 1);
+    num.value = String(n);
+    sync(n);
+    const last = rows()[rows().length - 1];
+    if (last) last.querySelector("input").focus();  // γράψε αμέσως
+  });
+
+  box.addEventListener("click", (e) => {
+    const btn = e.target.closest(".p-rm");
+    if (!btn) return;
+    const row = btn.closest(".person");
+    if (!row || row.classList.contains("is-out")) return;
+    const at = rows().indexOf(row);
+    trimmed = [];                                   // ρητή αφαίρεση → μην επιστρέψει
+    dropRow(row);
+    num.value = String(total());                    // ποτέ κάτω από 1
+    renumber();
+    const left = rows();                            // η εστίαση να μη χαθεί στο κενό
+    const next = left[at] || left[left.length - 1];
+    (next ? next.querySelector(".p-rm") : (add.disabled ? num : add)).focus();
+  });
+
+  sync(Number(num.value) || 1);                     // αρχικός συγχρονισμός
+  return { inputs, sync };
+})();
 
 /* --- reveal on scroll --- */
 const io = new IntersectionObserver((entries)=>{
@@ -944,7 +1158,7 @@ form.addEventListener("submit", async (ev)=>{
   const name = $("name").value.trim();
   const attending = (form.querySelector('input[name="attending"]:checked') || {}).value;
 
-  if (!name){ err.textContent = "Γράψτε το όνομά σας."; $("name").focus(); return; }
+  if (!name){ err.textContent = "Γράψτε το όνομα σας."; $("name").focus(); return; }
   if (!attending){ err.textContent = "Επιλέξτε αν θα παρευρεθείτε."; return; }
 
   const isYes = attending === "Ναι";
@@ -954,13 +1168,21 @@ form.addEventListener("submit", async (ev)=>{
     $("guests").focus(); return;
   }
 
+  // κάθε άτομο θέλει το ονοματεπώνυμό του
+  const others = isYes ? peopleList.inputs() : [];
+  const blank  = others.find(i => !i.value.trim());
+  if (blank){
+    err.textContent = "Συμπληρώστε το ονοματεπώνυμο για κάθε άτομο.";
+    blank.focus(); return;
+  }
+
   const hp = $("website") ? $("website").value.trim() : "";   // honeypot (γεμάτο = bot)
 
   const payload = {
     name,
     attending,
     guests: isYes ? String(guests) : "0",
-    companions: isYes ? $("companions").value.trim() : "",
+    companions: others.map(i => i.value.trim()).join(", "),   // «Μαρία, Γιώργος» — ίδιο σχήμα με πριν
     token: guestToken,
     website: hp,
     timestamp: new Date().toISOString(),
@@ -985,8 +1207,8 @@ form.addEventListener("submit", async (ev)=>{
     }
     form.hidden = true;
     $("doneMsg").textContent = isYes
-      ? "Χαρήκαμε πολύ! Ανυπομονούμε να σας δούμε στη Νέα Κηφισιά."
-      : "Θα μας λείψετε. Ευχαριστούμε που μας ενημερώσατε.";
+      ? ""
+      : "Ευχαριστούμε που μας ενημερώσατε.";
     if (isDemo){ $("doneMsg").textContent += "  (demo — σύνδεσε το endpoint για πραγματική καταχώρηση)"; }
     $("done").hidden = false;
     $("done").scrollIntoView({behavior:"smooth", block:"center"});
@@ -996,6 +1218,27 @@ form.addEventListener("submit", async (ev)=>{
     btn.textContent = "Επιβεβαίωση απάντησης";
   }
 });
+</script>
+<script>
+/* Μουσική: ξεκινά μόλις μπει κάποιος στο site.
+   Αν ο browser μπλοκάρει το autoplay, ξεκινά στο πρώτο άγγιγμα/κλικ/scroll. */
+(function(){
+  const bgm = document.getElementById("bgm");
+  bgm.volume = 0.5;
+
+  function play(){
+    bgm.play().then(() => {
+      ["pointerdown","keydown","touchstart","scroll"].forEach(ev =>
+        document.removeEventListener(ev, play)
+      );
+    }).catch(() => {});
+  }
+
+  play();
+  ["pointerdown","keydown","touchstart","scroll"].forEach(ev =>
+    document.addEventListener(ev, play, {passive:true})
+  );
+})();
 </script>
 </body>
 </html>
